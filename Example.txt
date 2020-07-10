@@ -1,0 +1,13 @@
+﻿Client "Your_local_dispenser" connected (154.5.144.160:27005).
+Client "|FoxySvK|" connected (80.94.55.7:27005).
+Dropped Lumbago from server (Disconnect by user.)
+Server is hibernating
+Client "Kokolores" connected (87.154.218.129:27005).
+CreateFragmentsFromFile: 'user_custom/ac/acfe2df6.dat' doesn't exist.
+Dropped Kokolores from server (#TF_Idle_kicked)
+Dropped Cryhallah from server (Disconnect by user.)
+Client "the engenier is a spy" connected (79.186.143.170:27005).
+CreateFragmentsFromFile: 'user_custom/aa/aa75a9b9.dat' doesn't exist.
+Entity 1194 (class 'tf_weapon_flamethrower') reported ENTITY_CHANGE_NONE but 'm_hFlameManager' changed.
+Entity 1194 (class 'tf_weapon_flamethrower') reported ENTITY_CHANGE_NONE but 'm_hFlameManager' changed.
+Dropped the engenier is a spy from server (the engenier is a spy timed out)
