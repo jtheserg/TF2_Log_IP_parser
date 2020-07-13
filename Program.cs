@@ -35,6 +35,9 @@ namespace TF2_Log_IP_parser
                     Console.Write(ParseFile(Line, IP_pattern, Garbage_Delete_Port));
                 }
             }
+
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey(true);
         }
         private static string ParseFile(string Line, string IP_pattern, string Garbage_pattern)
         {
