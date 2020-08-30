@@ -9,10 +9,8 @@ namespace TF2_Log_IP_parser
     {
         private static void Main(string[] args)
         {
+            const bool KeepPort = false;
             const string IP_pattern = @"\([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*\:[0-9]*\)";
-            const string Garbage_Keep_Port = @"\(|\)";
-            const string Garbage_Delete_Port = @"\(|\)|\:[0-9]*";
-            bool KeepPort = false;
 
             if (args is null)
             {
@@ -48,7 +46,7 @@ namespace TF2_Log_IP_parser
                 // Actual code
                 foreach (string Line in Input)
                 {
-                    string pLine = ParseFile(Line, IP_pattern, KeepPort ? Garbage_Keep_Port : Garbage_Delete_Port);
+                    string pLine = ParseFile(Line, IP_pattern, Garbage_Pattern(KeepPort));
                     if (pLine != string.Empty)
                     {
                         Console.WriteLine(pLine);
@@ -61,14 +59,13 @@ namespace TF2_Log_IP_parser
         }
         private static string ParseFile(string Line, string IP_pattern, string Garbage_pattern)
         {
-            if (Regex.IsMatch(Line, IP_pattern))
-            {
-                return Regex.Replace(Regex.Match(Line, IP_pattern).Value, Garbage_pattern, string.Empty);
-            }
-            else
-            {
-                return string.Empty;
-            }
+            return Regex.IsMatch(Line, IP_pattern)
+                ? Regex.Replace(Regex.Match(Line, IP_pattern).Value, Garbage_pattern, string.Empty)
+                : string.Empty;
+        }
+        private static string Garbage_Pattern(bool KeepPort)
+        {
+            return $@"\(|\){(KeepPort ? string.Empty : @"|\:[0-9]*")}";
         }
     }
 }
