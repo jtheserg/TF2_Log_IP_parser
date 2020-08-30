@@ -18,24 +18,32 @@ namespace TF2_Log_IP_parser
             }
 
             // Only for debug
-            int fileLoc = 0;
+            int fileLoc = 0; // 0 = fail
             IEnumerable Input = null;
-            if (File.Exists("..\\..\\..\\RequiredFilesForExport\\Example.txt"))
+
+            if (File.Exists("RequiredFilesForExport\\Example.txt"))
             {
-                fileLoc = 1;
+                fileLoc = 1; // When debuging
             }
             else if (File.Exists("Example.txt"))
             {
-                fileLoc = 2;
+                fileLoc = 2; // When downloaded and run
+            }
+            else if (File.Exists("..\\..\\..\\RequiredFilesForExport\\Example.txt"))
+            {
+                fileLoc = 3; // When coding or something
             }
 
             switch (fileLoc)
             {
                 case 1:
-                    Input = File.ReadLines("..\\..\\..\\RequiredFilesForExport\\Example.txt");
+                    Input = File.ReadLines("RequiredFilesForExport\\Example.txt");
                     break;
                 case 2:
                     Input = File.ReadLines("Example.txt");
+                    break;
+                case 3:
+                    Input = File.ReadLines("..\\..\\..\\RequiredFilesForExport\\Example.txt");
                     break;
                 default:
                     break;
