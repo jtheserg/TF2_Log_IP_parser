@@ -26,8 +26,7 @@ namespace TF2_Log_IP_parser
             {
                 fileLoc = 1;
             }
-
-            if (File.Exists("Example.txt"))
+            else if (File.Exists("Example.txt"))
             {
                 fileLoc = 2;
             }
