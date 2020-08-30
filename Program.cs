@@ -14,25 +14,46 @@ namespace TF2_Log_IP_parser
             const string Garbage_Delete_Port = @"\(|\)|\:[0-9]*";
             bool KeepPort = false;
 
-            if (args! is null)
+            if (args is null)
             {
                 throw new ArgumentException(nameof(args));
             }
 
-            IEnumerable Input = File.ReadLines("Example.txt");
-
-            if (KeepPort)
+            // Only for debug
+            int fileLoc = 0;
+            IEnumerable Input = null;
+            if (File.Exists("..\\..\\..\\RequiredFilesForExport\\Example.txt"))
             {
-                foreach (string Line in Input)
-                {
-                    Console.Write(ParseFile(Line, IP_pattern, Garbage_Keep_Port));
-                }
+                fileLoc = 1;
             }
-            else
+
+            if (File.Exists("Example.txt"))
             {
+                fileLoc = 2;
+            }
+
+            switch (fileLoc)
+            {
+                case 1:
+                    Input = File.ReadLines("..\\..\\..\\RequiredFilesForExport\\Example.txt");
+                    break;
+                case 2:
+                    Input = File.ReadLines("Example.txt");
+                    break;
+                default:
+                    break;
+            }
+
+            if (fileLoc != 0)
+            {
+                // Actual code
                 foreach (string Line in Input)
                 {
-                    Console.Write(ParseFile(Line, IP_pattern, Garbage_Delete_Port));
+                    string pLine = ParseFile(Line, IP_pattern, KeepPort ? Garbage_Keep_Port : Garbage_Delete_Port);
+                    if (pLine != string.Empty)
+                    {
+                        Console.WriteLine(pLine);
+                    }
                 }
             }
 
@@ -43,7 +64,7 @@ namespace TF2_Log_IP_parser
         {
             if (Regex.IsMatch(Line, IP_pattern))
             {
-                return Regex.Replace(Regex.Match(Line, IP_pattern).Value, Garbage_pattern, "") + "\n";
+                return Regex.Replace(Regex.Match(Line, IP_pattern).Value, Garbage_pattern, string.Empty);
             }
             else
             {
