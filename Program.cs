@@ -68,6 +68,10 @@ namespace TF2_Log_IP_parser
                     }
                 }
             }
+            else
+            {
+                Console.WriteLine("Error when searching for a file!");
+            }
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey(true);
