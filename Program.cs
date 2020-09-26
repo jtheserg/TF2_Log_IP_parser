@@ -21,56 +21,63 @@ namespace TF2_Log_IP_parser
             int fileLoc = -1; // -1 = fail
             IEnumerable Input = null;
 
-            if (args.Length != 0 && File.Exists(args[0]))
+            try
             {
-                fileLoc = 0; // When drag and dropped
-            }
-            else if (File.Exists("RequiredFilesForExport\\Example.txt"))
-            {
-                fileLoc = 1; // When debuging
-            }
-            else if (File.Exists("Example.txt"))
-            {
-                fileLoc = 2; // When downloaded and run
-            }
-            else if (File.Exists("..\\..\\..\\RequiredFilesForExport\\Example.txt"))
-            {
-                fileLoc = 3; // When coding or something
-            }
-
-            switch (fileLoc)
-            {
-                case 0:
-                    Input = File.ReadLines(args[0]);
-                    break;
-                case 1:
-                    Input = File.ReadLines("RequiredFilesForExport\\Example.txt");
-                    break;
-                case 2:
-                    Input = File.ReadLines("Example.txt");
-                    break;
-                case 3:
-                    Input = File.ReadLines("..\\..\\..\\RequiredFilesForExport\\Example.txt");
-                    break;
-                default:
-                    break;
-            }
-
-            if (fileLoc != -1)
-            {
-                // Actual code
-                foreach (string Line in Input)
+                if (args.Length != 0 && File.Exists(args[0]))
                 {
-                    string pLine = ParseFile(Line, IP_pattern, Garbage_Pattern(KeepPort));
-                    if (pLine != string.Empty)
+                    fileLoc = 0; // When drag and dropped
+                }
+                else if (File.Exists("RequiredFilesForExport\\Example.txt"))
+                {
+                    fileLoc = 1; // When debuging
+                }
+                else if (File.Exists("Example.txt"))
+                {
+                    fileLoc = 2; // When downloaded and run
+                }
+                else if (File.Exists("..\\..\\..\\RequiredFilesForExport\\Example.txt"))
+                {
+                    fileLoc = 3; // When coding or something
+                }
+
+                switch (fileLoc)
+                {
+                    case 0:
+                        Input = File.ReadLines(args[0]);
+                        break;
+                    case 1:
+                        Input = File.ReadLines("RequiredFilesForExport\\Example.txt");
+                        break;
+                    case 2:
+                        Input = File.ReadLines("Example.txt");
+                        break;
+                    case 3:
+                        Input = File.ReadLines("..\\..\\..\\RequiredFilesForExport\\Example.txt");
+                        break;
+                    default:
+                        break;
+                }
+
+                if (fileLoc != -1)
+                {
+                    // Actual code
+                    foreach (string Line in Input)
                     {
-                        Console.WriteLine(pLine);
+                        string pLine = ParseFile(Line, IP_pattern, Garbage_Pattern(KeepPort));
+                        if (pLine != string.Empty)
+                        {
+                            Console.WriteLine(pLine);
+                        }
                     }
                 }
+                else
+                {
+                    Console.WriteLine("Error when searching for a file!");
+                }
             }
-            else
+            catch (Exception e)
             {
-                Console.WriteLine("Error when searching for a file!");
+                Console.WriteLine($"\nERROR!\n{e.Message}");
             }
 
             Console.WriteLine("Press any key to exit...");
